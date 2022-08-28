@@ -16,15 +16,25 @@ void olivec_fill(uint32_t *pixels, size_t width, size_t height, uint32_t color)
 
 int olivec_save_to_ppm_file(uint32_t *pixels, size_t width, size_t height, const char *file_path)
 {
+  int result = 0;
   FILE *f = fopen(file_path, "wb");
-  if (f == NULL) return -1;
+
+  // printf("%lu", (unsigned long)pixels);
+
+  if (f == NULL) {
+    result = -1;
+    goto defer;
+  }
 
   fprintf(f, "P6\n%zu %zu 255\n", width, height);
-  if (ferror(f))  return -1;
+  if (ferror(f))  {
+    result = -1;
+    goto defer;
+  }
 
-  fclose(f);
-
-  return 0;
+defer:
+  if (f) fclose(f);
+  return result;
 }
 
 int main(void)
