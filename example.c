@@ -14,6 +14,8 @@ void olivec_fill(uint32_t *pixels, size_t width, size_t height, uint32_t color)
   }
 }
 
+#define return_defer(value) do { result = (value); goto defer; } while (0)
+
 int olivec_save_to_ppm_file(uint32_t *pixels, size_t width, size_t height, const char *file_path)
 {
   int result = 0;
@@ -22,14 +24,12 @@ int olivec_save_to_ppm_file(uint32_t *pixels, size_t width, size_t height, const
   // printf("%lu", (unsigned long)pixels);
 
   if (f == NULL) {
-    result = -1;
-    goto defer;
+    return_defer(-1);
   }
 
   fprintf(f, "P6\n%zu %zu 255\n", width, height);
   if (ferror(f))  {
-    result = -1;
-    goto defer;
+    return_defer(-1);
   }
 
 defer:
