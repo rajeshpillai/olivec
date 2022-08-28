@@ -3,10 +3,8 @@
 
 ## Compile
 
-``` ./build.sh
-```
+`./build.sh`
 
 ## Run
 
-``` ./example.out
-```
+ `./example.out`
