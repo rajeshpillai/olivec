@@ -62,8 +62,8 @@ int olivec_save_to_ppm_file(uint32_t *pixels, size_t width, size_t height, const
       };
       fwrite(bytes, sizeof(bytes), 1, f);
       if (ferror(f))  return_defer(errno);
-
     }
+    printf("PPM file successfully writtedn to disk\n");
   }
 
 defer:
@@ -74,6 +74,7 @@ defer:
 
 int main(void)
 {
+  printf("Hello, World\n");
   olivec_fill(pixels, WIDTH, HEIGHT, 0xFF202020);
   olivec_fill_rect(pixels, WIDTH, HEIGHT, 0, 0, 50, 30, 0XFF2020FF);
   const char *file_path = "output.ppm";
